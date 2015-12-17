@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+<bean id="org.trippi.TriplestoreConnector"
+ name="org.trippi.TriplestoreConnector"
+ class="cz.knav.virtuoso.trippi.VirtuosoConnector"
+ destroy-method="close" autowire-candidate="true">
+<property name="configuration">
+    <map>
+      <entry>
+        <key><value>connectString</value></key>
+        <value>jdbc:virtuoso://localhost:1111/charset=UTF-8/log_enable=2</value>
+      </entry>
+      <entry>
+        <key><value>user</value></key>
+        <value></value>
+      </entry>
+      <entry>
+        <key><value>password</value></key>
+        <value></value>
+      </entry>
+      <entry>
+        <key><value>autoFlushDormantSeconds</value></key>
+        <!-- Seconds of buffer inactivity that will trigger an 
+  			auto-flush. If this threshold is reached, flushing will occur in the 
+  			background, during which time the buffer is still available for 
+  			writing.-->
+        <value>5</value>
+      </entry>
+      <entry>
+        <key><value>autoFlushBufferSize</value></key>
+        <!-- The size at which the buffer should be auto-flushed. If 
+  			this threshold is reached, flushing will occur in the background, 
+  			during which time the buffer is still available for 
+  			writing.-->
+        <value>20000</value>
+      </entry>
+      <entry>
+        <key><value>bufferFlushBatchSize</value></key>
+        <!-- The number of updates to send to the triplestore at a time. 
+  			This should be the same size as, or smaller than 
+  			autoFlushBufferSize.-->
+        <value>20000</value>
+      </entry>
+      <entry>
+        <key><value>bufferSafeCapacity</value></key>
+        <!-- The maximum size the buffer can reach before being forcibly 
+  			flushed. If this threshold is reached, flushing will occur in the 
+  			foreground and the buffer will be locked for writing until it is 
+  			finished. This should be larger than autoFlushBufferSize.-->
+        <value>40000</value>
+      </entry>
+    </map>
+</property>
+</bean>
+</beans>
